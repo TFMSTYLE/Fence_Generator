@@ -4,7 +4,7 @@
 bl_info = {
     "name": "Fence",
     "author": "The French Monkey",
-    "version": (1, 0, 1),
+    "version": (1, 0, 2),
     "blender": (4, 2, 0),
     "location": "View3D > Sidebar > Fence",
     "description": "Generate parametric fence",
@@ -18,6 +18,11 @@ import math
 from mathutils import Vector, Matrix
 from math import radians, tau
 from bpy.props import EnumProperty, FloatProperty, IntProperty, BoolProperty
+
+try:
+    from . import relay_updater
+except ImportError:  # the Addon Collection has its own updates
+    relay_updater = None
 
 # ------------------------------------------------------------------------
 # Geometry helpers
@@ -811,6 +816,8 @@ class VIEW3D_PT_fence_generator(bpy.types.Panel):
     bl_category = "Fence" 
     
     def draw(self, context):
+        if relay_updater:
+            relay_updater.draw(self.layout)
         layout = self.layout
         p = context.scene.fgen_props
         o = context.object
@@ -918,12 +925,16 @@ classes = (
 )
 
 def register():
+    if relay_updater:
+        relay_updater.register("blender-fence")
     """Register addon classes and properties"""
     for cls in classes:
         bpy.utils.register_class(cls)
     bpy.types.Scene.fgen_props = bpy.props.PointerProperty(type=FGProperties)
 
 def unregister():
+    if relay_updater:
+        relay_updater.unregister()
     """Unregister addon classes and properties"""
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
