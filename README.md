@@ -3,7 +3,7 @@
 ![fence-thumb](https://github.com/user-attachments/assets/490531ac-be3f-4161-9837-161426268c8a)
 
 **Author:** The French Monkey (TFMSTYLE)  
-**Version:** 1.0.0  
+**Version:** 1.0.1  
 
 ---
 
@@ -242,3 +242,21 @@ The Live Update toggle state is preserved.
 - Combine **Gate** and **Corner** options for full enclosure designs.
 - Enable **Live Update** during setup and disable it for large scenes to improve performance.
 - Generated geometry is fully editable and compatible with modifiers, materials, and custom UV mapping.
+
+---
+
+## Install
+
+Needs Blender 4.2 or later. Get the zip from [tfmstyle.com](https://tfmstyle.com), then in Blender open Edit > Preferences > Get Extensions, open the menu at the top right and pick Install from Disk.
+
+To build the zip yourself, run this in the repo folder:
+
+```bash
+blender --command extension build
+```
+
+---
+
+## License
+
+GPL 3.0 or later. See [LICENSE](LICENSE).
