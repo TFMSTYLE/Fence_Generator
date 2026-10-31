@@ -4,7 +4,7 @@
 bl_info = {
     "name": "Fence",
     "author": "The French Monkey",
-    "version": (1, 0, 2),
+    "version": (1, 0, 3),
     "blender": (4, 2, 0),
     "location": "View3D > Sidebar > Fence",
     "description": "Generate parametric fence",
@@ -747,6 +747,8 @@ class FG_OT_generate(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}
     
     def execute(self, context):
+        if context.mode != "OBJECT":
+            bpy.ops.object.mode_set(mode="OBJECT")
         try:
             generate_fence(context)
             self.report({'INFO'}, "Fence generated successfully")
